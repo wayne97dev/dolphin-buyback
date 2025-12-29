@@ -1,4 +1,6 @@
 export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 
@@ -24,27 +26,17 @@ export async function GET() {
       })
     }
 
-    // Get stats
-    const { data: statsData, error: statsError } = await supabase
+    const { data: statsData } = await supabase
       .from('stats')
       .select('*')
       .eq('id', 1)
       .single()
 
-    if (statsError && statsError.code !== 'PGRST116') {
-      console.error('Stats error:', statsError)
-    }
-
-    // Get history
-    const { data: historyData, error: historyError } = await supabase
+    const { data: historyData } = await supabase
       .from('buybacks')
       .select('*')
       .order('created_at', { ascending: false })
       .limit(50)
-
-    if (historyError) {
-      console.error('History error:', historyError)
-    }
 
     const stats = {
       totalVolume: statsData?.total_volume || 0,
@@ -59,10 +51,11 @@ export async function GET() {
       tokenAmount: row.token_amount
     }))
 
-    return NextResponse.json({ stats, history })
+    const response = NextResponse.json({ stats, history })
+    response.headers.set('Cache-Control', 'no-store, max-age=0')
+    return response
     
   } catch (error) {
-    console.error('API Error:', error)
     return NextResponse.json(
       { 
         error: 'Failed to fetch stats',
