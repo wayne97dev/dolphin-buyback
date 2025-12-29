@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react'
 
 // ============== CONFIGURAZIONE LINK ==============
 const X_ACCOUNT_URL = 'https://x.com/TheWDolphin'  // Cambia con il tuo X
-const DEXSCREENER_URL = ''  // Cambia con il tuo chart
-const CONTRACT_ADDRESS = 'CONTRACT_ADDRESS'  // Il tuo token
+const DEXSCREENER_URL = 'https://dexscreener.com/solana/8envmxgkxvffromd1onzwbt5gq88fffq7b2apbm7wahn'  // Cambia con il tuo chart
+const CONTRACT_ADDRESS = 'DoAptrd5qQbWaUf42wWCBFXp6uvH3UEfkKGq5VQGpump'  // Il tuo token
 const BUYING_TOKEN_ADDRESS = 'a3W4qutoEJA4232T2gwZUfgYJTetr96pU4SJMwppump'  // Token che compri
 
 // ============== ICONE ==============
